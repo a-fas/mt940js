@@ -11,9 +11,9 @@
     "mt940",
     "swift",
     "bank",
-    "statement",
-    "format"
+    "statement"
   ],
   "author": "Alexander Tsybulsky",
-  "license": "ISC"
+  "license": "Apache-2.0",
+  "homepage": ""
 }

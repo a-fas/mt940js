@@ -1,0 +1,13 @@
+mt940-js changelog
+==================
+
+Legend
+------
+* : fixed
+! : changed
++ : added
+- : removed
+
+2016-12-03 v1.0.0
+------------------
+First release
