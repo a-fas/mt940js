@@ -4,8 +4,9 @@
   "description": "javascript mt940 bank statement parser",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint lib"
+    "test": "mocha",
+    "lint": "eslint lib",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "keywords": [
     "mt940",
@@ -15,5 +16,11 @@
   ],
   "author": "Alexander Tsybulsky",
   "license": "Apache-2.0",
-  "homepage": ""
+  "homepage": "",
+  "repository": "",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  }
 }
