@@ -1,26 +1,29 @@
 {
-  "name": "mt940-js",
+  "name": "mt940js",
   "version": "1.0.0",
   "description": "javascript mt940 bank statement parser",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "node_modules/.bin/mocha",
     "lint": "eslint lib",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha"
+    "coverage": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha",
+    "doc": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "keywords": [
     "mt940",
     "swift",
     "bank",
-    "statement"
+    "statement",
+    "parser"
   ],
   "author": "Alexander Tsybulsky",
   "license": "Apache-2.0",
-  "homepage": "",
-  "repository": "",
+  "homepage": "https://github.com/a-fas/mt940js.git",
+  "repository": "https://github.com/a-fas/mt940js.git",
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4.5",
+    "jsdoc": "^3.4.3",
     "mocha": "^3.2.0"
   }
 }
