@@ -16,15 +16,15 @@ describe('Helpers', () => {
   describe('Bank amount', () => {
     describe('Parse', () => {
       it('should parse debit amount -> negative', () => {
-        assert.equal(-123.34, helpers.Amount.parse('D', '123.34'));
+        assert.equal(helpers.Amount.parse('D', '123.34'), -123.34);
       });
 
       it('should parse credit amount -> positive', () => {
-        assert.equal(123.34, helpers.Amount.parse('C', '123.34'));
+        assert.equal(helpers.Amount.parse('C', '123.34'), 123.34);
       });
 
       it('should parse amount with ,', () => {
-        assert.equal(123.34, helpers.Amount.parse('C', '123,34'));
+        assert.equal(helpers.Amount.parse('C', '123,34'), 123.34);
       });
 
       it('should fail if wrong indicator passed', () => {
