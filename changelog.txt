@@ -8,6 +8,6 @@ Legend
 + : added
 - : removed
 
-2016-12-03 v1.0.0
+2016-12-11 v1.0.0
 ------------------
-First release
+First release :tada:

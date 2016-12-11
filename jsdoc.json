@@ -1,9 +1,10 @@
 {
   "source": {
-    "include": [ "./lib/" ],
+    "include": [ "./lib/", "index.js" ],
     "includePattern": ".+\\.js(doc)?$"
   },
   "opts": {
-    "destination": "./doc/"
+    "destination": "./doc/",
+    "readme": "./README.md"
   }
 }
