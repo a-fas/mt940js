@@ -68,12 +68,32 @@ for (let s of statements) {
 }
 ```
 
+**Support for field 86 structure**
+
+Currently the library supports `'<sep>DD'` structure tag format. E.g. `'>20some details >30more data'`. `<sep>` can be `'>'` or `'?'`.
+The parser attempts to detect if field 86 contains tags like this and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standartized among different banks.
+
+```javascript
+// let incoming file contain one line with 86 field:
+// '>20some details>30more data'
+
+const statements = ... // parsing here
+
+for (let s of statements) {
+ for (let t of s.transactions) {
+   console.log(t.structuredDetails);
+   // { '20': 'some details',
+   //   '30': 'more data' }
+ }
+}
+```
+
 ## Contribution ##
 Contribution is welcomed :)
 
 ## Plans ##
 - pre/post parsing callbacks
-- probably support for structured 86 field
+- better support for structured 86 field (e.g /XXX/ tags)
 
 ## Author ##
 [Alexander Tsybulsky](https://github.com/a-fas)
