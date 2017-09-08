@@ -1,5 +1,7 @@
 # SWIFT MT940 bank statement format JS parser #
 
+[![Build Status](https://travis-ci.org/a-fas/mt940js.svg?branch=master)](https://travis-ci.org/a-fas/mt940js)
+
 *[History of changes](/changelog.txt)*  
 
 mt940js is a SWIFT mt940 bank statement format parser for javascript (ES2015).
