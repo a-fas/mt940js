@@ -105,7 +105,7 @@ function dummyGroups() {
       new Tags.TagTransactionDetails('DETAILS'),
       new Tags.TagClosingBalance('C140508EUR500,00')
     ],
-  ]
+  ];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
