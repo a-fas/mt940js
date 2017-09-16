@@ -1,11 +1,12 @@
 # SWIFT MT940 bank statement format JS parser #
 
 [![Build Status](https://travis-ci.org/a-fas/mt940js.svg?branch=master)](https://travis-ci.org/a-fas/mt940js)
+[![NPM version](https://badge.fury.io/js/mt940js.svg)](https://badge.fury.io/js/mt940js)
+[![codecov](https://codecov.io/gh/a-fas/mt940js/branch/master/graph/badge.svg)](https://codecov.io/gh/a-fas/mt940js)
 
 *[History of changes](/changelog.txt)*  
 
-mt940js is a SWIFT mt940 bank statement format parser for javascript (ES2015).
-Takes in text of mt940 file, puts out array of parsed statements and transactions.
+mt940js is a SWIFT mt940 bank statement format parser for javascript (ES2015). Takes in text of mt940 file, puts out array of parsed statements and transactions.
 See examples below.
 
 ## Installation ##
@@ -16,10 +17,27 @@ npm install mt940js
 
 ## API and usage ##
 
-
 Main parser class - `Parser` - parses input text (e.g. read from a file) into array of statements (a file may contain one or more). Each output statement contains a set of attributes, describing opening balance, statement number, etc and also an array of transactions.
 
+**Example**
+
+```javascript
+const mt940js = require('mt940js');
+const parser  = new mt940js.Parser();
+
+const statements = parser.parse(fs.readFileSync('./some_path', 'utf8'));
+
+for (let s of statements) {
+ console.log(s.number.statement, s.statementDate);
+
+ for (let t of s.transactions) {
+   console.log(t.amount, t.currency);
+ }
+}
+```
+
 **Statement**
+
 -  `transactionReference` {string} - tag 20 reference
 -  `relatedReference` {string} - tag 21 reference, *optional*
 -  `accountIdentification` {string} - tag 25 own bank account identification
@@ -47,32 +65,25 @@ Main parser class - `Parser` - parses input text (e.g. read from a file) into ar
 - `bankReference` {string} - bank reference, *optional*
 - `extraDetails` {string} - extra details, *optional*
 
-Each statement is validated for: all strictly required tags, opening/closing balance currency is the same, opening balance + turnover = closing balance.
+Each statement is validated for: 
+
+- all strictly required tags
+- opening/closing balance currency is the same
+- opening balance + turnover = closing balance
 
 **Invocation**
 
-Actually the `Parser` has just one method - `parse(data, withTags = false)` - which will convernt raw mt940 text to an array of statements described above. The optional `withTags` param would preserve parsed tags to an additional `tags` attribute of a statement (for any additional further analyasis).
-
-**Example**
-
-```javascript
-const mt940js = require('mt940js');
-const parser  = new mt940js.Parser();
-
-const statements = parser.parse(fs.readFileSync('./some_path', 'utf8'));
-
-for (let s of statements) {
- console.log(s.number.statement, s.statementDate);
-
- for (let t of s.transactions) {
-   console.log(t.amount, t.currency);
- }
-}
-```
+The `Parser` has just one method - `parse(data, withTags = false)` - which will convernt raw mt940 string to an array of statements described above. The optional `withTags` param would preserve parsed tags to an additional `tags` attribute of a statement (for any additional further analyasis).
 
 **Support for field 86 structure**
 
-Currently the library supports `'<sep>DD'` structure tag format. E.g. `'>20some details >30more data'`. `<sep>` can be `'>'` or `'?'`.
+Currently the library supports `'<sep>DD'` structure tag format. E.g.
+
+```
+'>20some details >30more data'
+``` 
+
+`<sep>` can be `'>'` or `'?'`.
 The parser attempts to detect if field 86 contains tags like this and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standartized among different banks.
 
 ```javascript
