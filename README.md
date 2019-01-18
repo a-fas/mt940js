@@ -1,4 +1,4 @@
-# SWIFT MT940 bank statement format JS parser #
+# SWIFT MT940 bank statement format JS parser
 
 [![Build Status](https://travis-ci.org/a-fas/mt940js.svg?branch=master)](https://travis-ci.org/a-fas/mt940js)
 [![NPM version](https://badge.fury.io/js/mt940js.svg)](https://badge.fury.io/js/mt940js)
@@ -9,13 +9,13 @@
 mt940js is a SWIFT mt940 bank statement format parser for javascript (ES2015). Takes in text of mt940 file, puts out array of parsed statements and transactions.
 See examples below.
 
-## Installation ##
+## Installation
 
 ```bash
 npm install mt940js
 ```
 
-## API and usage ##
+## API and usage
 
 Main parser class - `Parser` - parses input text (e.g. read from a file) into array of statements (a file may contain one or more). Each output statement contains a set of attributes, describing opening balance, statement number, etc and also an array of transactions.
 
@@ -56,6 +56,7 @@ for (let s of statements) {
 
 - `date` {Date} - transaction date
 - `amount` {Number} - transaction amount (with sign, Credit+, Debit-)
+- `reversal` {Boolean} - transaction is a reversal
 - `currency` {string} - transaction currency (copy of statement currency)
 - `details` {string} - content of relevant 86 tag(s), may be multiline (`\n` separated)
 - `transactionType` {string} - MT940 transaction type code (e.g. NTRF ...)
@@ -73,7 +74,7 @@ Each statement is validated for:
 
 **Invocation**
 
-The `Parser` has just one method - `parse(data, withTags = false)` - which will convernt raw mt940 string to an array of statements described above. The optional `withTags` param would preserve parsed tags to an additional `tags` attribute of a statement (for any additional further analyasis).
+The `Parser` has just one method - `parse(data, withTags = false)` - which will convert raw mt940 string to an array of statements described above. The optional `withTags` parameter would preserve parsed tags to an additional `tags` attribute of a statement (for any additional further analysis).
 
 **Support for field 86 structure**
 
@@ -84,7 +85,7 @@ Currently the library supports `'<sep>DD'` structure tag format. E.g.
 ``` 
 
 `<sep>` can be `'>'` or `'?'`.
-The parser attempts to detect if field 86 contains tags like this and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standartized among different banks.
+The parser attempts to detect if field 86 contains tags like this and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standardized among different banks.
 
 ```javascript
 // let incoming file contain one line with 86 field:
@@ -101,18 +102,21 @@ for (let s of statements) {
 }
 ```
 
-## Contribution ##
+## Contribution
 Contribution is welcomed :)
 
-## Plans ##
+## Plans
 - pre/post parsing callbacks
 - better support for structured 86 field (e.g /XXX/ tags)
 
-## Author ##
+## Author
 [Alexander Tsybulsky](https://github.com/a-fas)
 
-## License ##
+## License
 The code is licensed under Apache-2.0 License. Please see [LICENSE](/LICENSE) for details.
 
-## Credits ##
+## Credits
 Inspired by https://github.com/WoLpH/mt940
+
+## Standard references
+- https://www2.swift.com/knowledgecentre/publications/us9m_20180720/2.0

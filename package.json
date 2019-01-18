@@ -4,11 +4,12 @@
   "description": "javascript mt940 bank statement parser",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha",
+    "test": "mocha",
+    "testwatch": "mocha --watch",
     "lint": "eslint lib",
-    "coverage": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha",
-    "doc": "node_modules/.bin/jsdoc -c jsdoc.json",
-    "codecov": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec"
+    "coverage": "istanbul cover ./node_modules/mocha/bin/mocha",
+    "doc": "jsdoc -c jsdoc.json",
+    "codecov": "istanbul cover ./node_modules/mocha/bin/mocha --report lcovonly -- -R spec"
   },
   "keywords": [
     "mt940",
