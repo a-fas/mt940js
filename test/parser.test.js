@@ -39,6 +39,7 @@ function expectedStatement() {
     transactions: [
       {
         amount: 500.00,
+        isReversal: false,
         currency: 'EUR',
         reference: 'NONREF',
         bankReference: 'AUXREF',
@@ -148,6 +149,7 @@ describe('Parser', () => {
       exp.transactions.push({
         amount: 0.00,
         currency: 'EUR',
+        isReversal: false,
         reference: 'NONREF2',
         bankReference: '',
         transactionType: 'NTRF',

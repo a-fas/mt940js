@@ -23,6 +23,14 @@ describe('Helpers', () => {
         assert.equal(helpers.Amount.parse('C', '123.34'), 123.34);
       });
 
+      it('should parse debit amount reversal -> positive', () => {
+        assert.equal(helpers.Amount.parse('RD', '123.34'), 123.34);
+      });
+
+      it('should parse credit amount reversal -> negative', () => {
+        assert.equal(helpers.Amount.parse('RC', '123.34'), -123.34);
+      });
+
       it('should parse amount with ,', () => {
         assert.equal(helpers.Amount.parse('C', '123,34'), 123.34);
       });
@@ -33,6 +41,14 @@ describe('Helpers', () => {
 
       it('should fail if wrong indicator passed', () => {
         assert.throws(helpers.Amount.parse.bind(null, 'X', '123,34'), /Wrong debit/);
+      });
+
+      it('should fail if wrong indicator passed / reversal', () => {
+        assert.throws(helpers.Amount.parse.bind(null, 'XZ', '123,34'), /Wrong reversal/);
+      });
+
+      it('should fail if wrong indicator passed / reversal 2', () => {
+        assert.throws(helpers.Amount.parse.bind(null, 'RZ', '123,34'), /Wrong debit/);
       });
 
       it('should fail if wrong amount passed', () => {

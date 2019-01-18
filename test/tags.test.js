@@ -61,6 +61,20 @@ describe('Tags', () => {
       assert.equal(tag.fields.transactionType, 'NTRF');
       assert.equal(tag.fields.reference, 'NONREF');
       assert.equal(tag.fields.bankReference, 'B4E07XM00J000023');
+      assert.equal(tag.fields.isReversal, false);
+    });
+
+    it('should create tag 61 / reversal and funds code', () => {
+      const str = '1605070507RDR123,89NTRFNONREF//B4E07XM00J000023';
+      const tag = tf.createTag('61', null, str);
+      assert.equal(tag.fields.date.toISOString().substr(0,10), '2016-05-07');
+      assert.equal(tag.fields.entryDate.toISOString().substr(0,10), '2016-05-07');
+      assert.equal(tag.fields.amount, 123.89); // Reversed
+      assert.equal(tag.fields.transactionType, 'NTRF');
+      assert.equal(tag.fields.reference, 'NONREF');
+      assert.equal(tag.fields.bankReference, 'B4E07XM00J000023');
+      assert.equal(tag.fields.isReversal, true);
+      assert.equal(tag.fields.fundsCode, 'R');
     });
 
     it('should create tag 86 (TransactionDetails)', () => {
