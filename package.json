@@ -7,9 +7,9 @@
     "test": "mocha",
     "testwatch": "mocha --watch",
     "lint": "eslint lib test cli.js index.js",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/mocha",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "doc": "jsdoc -c jsdoc.json",
-    "codecov": "istanbul cover ./node_modules/mocha/bin/mocha --report lcovonly -- -R spec"
+    "codecov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec"
   },
   "keywords": [
     "mt940",

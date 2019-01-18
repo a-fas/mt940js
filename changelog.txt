@@ -8,6 +8,10 @@ Legend
 + : added
 - : removed
 
+2019-01-19 v1.2.0-beta
+------------------
++ support for reversal flag, field 61 also contains isReversal attribute
+
 2016-09-08 v1.1.0
 ------------------
 + added some support for structured 86 field
