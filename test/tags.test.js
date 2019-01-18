@@ -108,10 +108,10 @@ describe('Tags', () => {
 
     it('Tag and TagBalance are abstact', () => {
       assert.throws(
-        () => {let a = new tags.Tag},
+        () => new tags.Tag,
         /Tag instances/);
       assert.throws(
-        () => {let a = new tags.TagBalance('C160507EUR123,89')},
+        () => new tags.TagBalance('C160507EUR123,89'),
         /TagBalance instances/);
     });
 
