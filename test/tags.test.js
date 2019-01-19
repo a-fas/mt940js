@@ -52,6 +52,22 @@ describe('Tags', () => {
       assert.equal(tag.fields.amount, 123.89);
     });
 
+    it('should create tag 64 (ClosingAvailableBalance)', () => {
+      const str = 'C160507EUR123,89';
+      const tag = tf.createTag('64', null, str);
+      assert.equal(tag.fields.date.toISOString().substr(0,10), '2016-05-07');
+      assert.equal(tag.fields.currency, 'EUR');
+      assert.equal(tag.fields.amount, 123.89);
+    });
+
+    it('should create tag 65 (ForwardAvailableBalance)', () => {
+      const str = 'C160507EUR123,89';
+      const tag = tf.createTag('65', null, str);
+      assert.equal(tag.fields.date.toISOString().substr(0,10), '2016-05-07');
+      assert.equal(tag.fields.currency, 'EUR');
+      assert.equal(tag.fields.amount, 123.89);
+    });
+
     it('should create tag 61 (StatementLine)', () => {
       const str = '1605070507D123,89NTRFNONREF//B4E07XM00J000023';
       const tag = tf.createTag('61', null, str);

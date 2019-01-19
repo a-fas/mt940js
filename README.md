@@ -46,10 +46,14 @@ for (let s of statements) {
 -  `number.section` {string} - tag 28 statement sub sub number (present on some banks), *optional*
 -  `openingBalanceDate` {Date} - tag 60 statement opening date
 -  `closingBalanceDate` {Date} - tag 62 statement closing date
+-  `closingAvailableBalanceDate` {Date} - tag 64 closing available balance date, default = closing date
+-  `forwardAvailableBalanceDate` {Date} - tag 65 forward available balance date, default = closing available date
 -  `statementDate` {Date} - abstraction for statement date = `closingBalanceDate`
 -  `currency` {string} - statement currency (USD, EUR ...)
 -  `openingBalance` {Number} - beginning balance of the statement (with sign, based on debit/credit mark)
 -  `closingBalance` {Number} - ending balance of the statement (with sign, based on debit/credit mark)
+-  `closingAvailableBalance` {Number} - tag 64 closing available balance, default = closing balance
+-  `forwardAvailableBalance` {Number} - tag 65 forward available balance, default = closing available
 -  `transactions` {array}  - collection of transactions
 
 **Each Transaction contains data of tag 61 (and tag 86 for details)**

@@ -33,6 +33,10 @@ function expectedStatement() {
     currency:           'EUR',
     openingBalance:     0.0,
     closingBalance:     500.0,
+    closingAvailableBalanceDate: helpers.Date.parse('14', '05', '08'),
+    forwardAvailableBalanceDate: helpers.Date.parse('14', '05', '08'),
+    closingAvailableBalance:     500.0,
+    forwardAvailableBalance:     500.0,
     transactions: [
       {
         amount:          500.00,
@@ -165,11 +169,31 @@ describe('Parser', () => {
 
   /* INTEGRATION TEST */
   describe('Integration test', () => {
-    it('should pass', () => {
+    it('typical statement', () => {
       const parser = new Parser();
       const result = parser.parse(DUMMY_STATEMENT_LINES.join('\n'));
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], expectedStatement());
+    });
+    it('statement with fields 64, 65', () => {
+      const parser = new Parser();
+      const exp    = expectedStatement();
+
+      // patch data
+      exp.closingAvailableBalanceDate = helpers.Date.parse('14', '05', '09');
+      exp.forwardAvailableBalanceDate = helpers.Date.parse('14', '05', '10');
+      exp.closingAvailableBalance     = 600.0;
+      exp.forwardAvailableBalance     = 700.0;
+      const data = [
+        ...DUMMY_STATEMENT_LINES.slice(0,-1),
+        ':64:C140509EUR600,00',
+        ':65:C140510EUR700,00',
+        ...DUMMY_STATEMENT_LINES.slice(-1)
+      ].join('\n');
+
+      const result = parser.parse(data);
+      assert.equal(result.length, 1);
+      assert.deepEqual(result[0], exp);
     });
   });
 });
