@@ -36,7 +36,7 @@ for (let s of statements) {
 }
 ```
 
-**Statement**
+### Statement
 
 -  `transactionReference` {string} - tag 20 reference
 -  `relatedReference` {string} - tag 21 reference, *optional*
@@ -77,11 +77,11 @@ Each statement is validated for:
 - opening/closing balance currency is the same
 - opening balance + turnover = closing balance
 
-**Invocation**
+### Invocation
 
 The `Parser` has just one method - `parse(data, withTags = false)` - which will convert raw mt940 string to an array of statements described above. The optional `withTags` parameter would preserve parsed tags to an additional `tags` attribute of a statement (for any additional further analysis).
 
-**Support for field 86 structure**
+### Support for field 86 structure
 
 Currently the library supports the following tag formats:
 - `'<sep>DD'`, where `<sep>` can be `'>'` or `'?'`
@@ -112,11 +112,25 @@ for (let s of statements) {
 }
 ```
 
+### Middlewares
+
+**Currently experimental, may change**
+
+The library support post processing middlewares which is called before returning parsed result. To append a middleware call `usePostParse` passing `fn(statement, next)`. Middlewares are called in the order of appending. Middlewares modify statement object directly. Beware that input data may contain several statements, middlewares are called over each of them one by one.
+
+```javascript
+  const parser = new Parser();
+  parser.usePostParse((s, next) => {
+    s.hasOverdraft = (s.closingBalance < 0);
+    next();
+  });
+```
+
 ## Contribution
 Contribution is welcomed :)
 
-## Plans
-- pre/post parsing callbacks
+## TODO
+- pre parsing middlewares
 
 ## Author
 [Alexander Tsybulsky](https://github.com/a-fas)

@@ -8,11 +8,12 @@ Legend
 + : added
 - : removed
 
-2019-01-19 v1.2.0-beta
+2019-01-19 v1.2.0
 ------------------
 + support for reversal flag, field 61 also contains isReversal attribute
 + support for fields 64 and 65 (closingAvailableBalance, forwardAvailableBalance)
 + support for /XXX/ field 86 subtags
++ support post parse middlewares
 
 2016-09-08 v1.1.0
 ------------------
