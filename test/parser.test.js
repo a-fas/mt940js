@@ -63,6 +63,15 @@ const DUMMY_GROUP_SIMPLE = [
   new Tags.TagTransactionDetails('DETAILS'),
   new Tags.TagClosingBalance('C140508EUR500,00')
 ];
+const DUMMY_GROUP_STRUCTURED = [
+  new Tags.TagTransactionReferenceNumber('B4E08MS9D00A0009'),
+  new Tags.TagAccountIdentification('123456789'),
+  new Tags.TagStatementNumber('123/1'),
+  new Tags.TagOpeningBalance('C140507EUR0,00'),
+  new Tags.TagStatementLine('1405070507C500,00NTRFNONREF//AUXREF'),
+  new Tags.TagTransactionDetails('?20Hello?30World'),
+  new Tags.TagClosingBalance('C140508EUR500,00')
+];
 const DUMMY_GROUP_COMPLEX = [ // 2 detail lines and 2 transactions
   new Tags.TagTransactionReferenceNumber('B4E08MS9D00A0009'),
   new Tags.TagRelatedReference('X'),
@@ -114,7 +123,7 @@ describe('Parser', () => {
     it('_buildStatement', () => {
       const parser = new Parser();
       const group  = DUMMY_GROUP_COMPLEX;
-      const result = parser._buildStatement(group);
+      let result   = parser._buildStatement(group);
 
       let exp  = expectedStatement();
       exp.transactions.push({ // patch
@@ -131,6 +140,21 @@ describe('Parser', () => {
         fundsCode: '',
       });
       assert.deepEqual(result, exp);
+      assert.isUndefined(result.tags);
+      assert.isUndefined(result.structuredDetails);
+
+      // with Tags
+      result = parser._buildStatement(group, true);
+      assert.deepEqual(result.tags, group);
+    });
+
+    it('_buildStatement structured', () => {
+      const parser = new Parser();
+      const result = parser._buildStatement(DUMMY_GROUP_STRUCTURED);
+      assert.deepEqual(result.transactions[0].structuredDetails, {
+        '20': 'Hello',
+        '30': 'World',
+      });
     });
 
     it('_validateGroup throws', () => {
