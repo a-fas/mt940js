@@ -69,6 +69,7 @@ for (let s of statements) {
 - `fundsCode` {string} - funds code field, *optional*
 - `bankReference` {string} - bank reference, *optional*
 - `extraDetails` {string} - extra details, *optional*
+- `structuredDetails` {Object} - structured details if detected, in for of `{ subtag: value }` e.g. `{ '20': '123456' }`
 
 Each statement is validated for: 
 
@@ -82,14 +83,19 @@ The `Parser` has just one method - `parse(data, withTags = false)` - which will 
 
 **Support for field 86 structure**
 
-Currently the library supports `'<sep>DD'` structure tag format. E.g.
+Currently the library supports the following tag formats:
+- `'<sep>DD'`, where `<sep>` can be `'>'` or `'?'`
+- `'/TAG/value'`, where `TAG` is 2 to 4 uppercase chars.
+
+Example:
 
 ```
 '>20some details >30more data'
+or
+'/ORDP/Smith Corp'
 ``` 
 
-`<sep>` can be `'>'` or `'?'`.
-The parser attempts to detect if field 86 contains tags like this and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standardized among different banks.
+The parser attempts to detect if field 86 contains tags like these and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standardized among different banks.
 
 ```javascript
 // let incoming file contain one line with 86 field:
@@ -111,7 +117,6 @@ Contribution is welcomed :)
 
 ## Plans
 - pre/post parsing callbacks
-- better support for structured 86 field (e.g /XXX/ tags)
 
 ## Author
 [Alexander Tsybulsky](https://github.com/a-fas)
