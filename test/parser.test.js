@@ -191,6 +191,30 @@ describe('Parser', () => {
     });
   });
 
+  /* MIDDLEWARES */
+  describe('Middlewares', () => {
+    it('post parse wrong fn throws', () => {
+      const parser = new Parser();
+      assert.throws(() => parser.usePostParse(1), /middleware must be a function/);
+    });
+    it('post parse middleware', () => {
+      const parser = new Parser();
+      parser.usePostParse((s, next) => {
+        s.dummyMarker = true;
+        next();
+      });
+      parser.usePostParse((s, next) => {
+        if (s.dummyMarker) s.dummyMarker2 = true;
+        next();
+      });
+
+      const result = parser.parse(DUMMY_STATEMENT_LINES.join('\n'));
+      assert.isDefined(result);
+      assert.isTrue(result[0].dummyMarker);
+      assert.isTrue(result[0].dummyMarker2);
+    });
+  });
+
   /* INTEGRATION TEST */
   describe('Integration test', () => {
     it('typical statement', () => {
