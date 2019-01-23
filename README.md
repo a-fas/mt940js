@@ -68,7 +68,7 @@ for (let s of statements) {
 - `entryDate` {Date} - entry date field, *optional*
 - `fundsCode` {string} - funds code field, *optional*
 - `bankReference` {string} - bank reference, *optional*
-- `extraDetails` {string} - extra details, *optional*
+- `extraDetails` {string} - extra details (supplementary details), *optional*
 - `structuredDetails` {Object} - structured details if detected, in for of `{ subtag: value }` e.g. `{ '20': '123456' }`
 
 Each statement is validated for: 
