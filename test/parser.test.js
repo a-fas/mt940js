@@ -17,6 +17,24 @@ const DUMMY_STATEMENT_LINES = [
   '-}'
 ];
 
+const DUMMY_STATEMENT_LINES_61_64_65 = [
+  '{1:XXX0000000000}{2:XXXXXXXXX}{4:',
+  ':20:B4E08MS9D00A0009',
+  ':21:X',
+  ':25:123456789',
+  ':28C:123/1',
+  ':60F:C140507EUR0,00',
+  ':61:1405070507C500,00NTRFNONREF//AUXREF',
+  'SUPPLEMENTARY61',
+  ':86:LINE1',
+  'LINE2',
+  ':62F:C140508EUR500,00',
+  ':64:C140509EUR600,00',
+  ':65:C140510EUR700,00',
+  '-}'
+];
+
+
 function expectedStatement() {
   return {
     transactionReference:  'B4E08MS9D00A0009',
@@ -223,7 +241,7 @@ describe('Parser', () => {
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], expectedStatement());
     });
-    it('statement with fields 64, 65', () => {
+    it('statement with fields 64, 65 and long 61', () => {
       const parser = new Parser();
       const exp    = expectedStatement();
 
@@ -232,14 +250,9 @@ describe('Parser', () => {
       exp.forwardAvailableBalanceDate = helpers.Date.parse('14', '05', '10');
       exp.closingAvailableBalance     = 600.0;
       exp.forwardAvailableBalance     = 700.0;
-      const data = [
-        ...DUMMY_STATEMENT_LINES.slice(0,-1),
-        ':64:C140509EUR600,00',
-        ':65:C140510EUR700,00',
-        ...DUMMY_STATEMENT_LINES.slice(-1)
-      ].join('\n');
+      exp.transactions[0].extraDetails = 'SUPPLEMENTARY61';
 
-      const result = parser.parse(data);
+      const result = parser.parse(DUMMY_STATEMENT_LINES_61_64_65.join('\n'));
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], exp);
     });
