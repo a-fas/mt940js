@@ -31,6 +31,8 @@ const DUMMY_STATEMENT_LINES_61_64_65 = [
   ':62F:C140508EUR500,00',
   ':64:C140509EUR600,00',
   ':65:C140510EUR700,00',
+  ':86:statement',
+  'comment',
   '-}'
 ];
 
@@ -97,8 +99,7 @@ const DUMMY_GROUP_COMPLEX = [ // 2 detail lines and 2 transactions
   new Tags.TagStatementNumber('123/1'),
   new Tags.TagOpeningBalance('C140507EUR0,00'),
   new Tags.TagStatementLine('1405070507C500,00NTRFNONREF//AUXREF'),
-  new Tags.TagTransactionDetails('LINE1'),
-  new Tags.TagTransactionDetails('LINE2'),
+  new Tags.TagTransactionDetails('LINE1\nLINE2'),
   new Tags.TagStatementLine('1405070507C0,00NTRFNONREF2'),
   new Tags.TagTransactionDetails('LINE1'),
   new Tags.TagClosingBalance('C140508EUR500,00')
@@ -241,7 +242,7 @@ describe('Parser', () => {
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], expectedStatement());
     });
-    it('statement with fields 64, 65 and long 61', () => {
+    it('statement with fields 64, 65, long 61 and statement comment', () => {
       const parser = new Parser();
       const exp    = expectedStatement();
 
@@ -251,6 +252,7 @@ describe('Parser', () => {
       exp.closingAvailableBalance     = 600.0;
       exp.forwardAvailableBalance     = 700.0;
       exp.transactions[0].extraDetails = 'SUPPLEMENTARY61';
+      exp.informationToAccountOwner = 'statement\ncomment';
 
       const result = parser.parse(DUMMY_STATEMENT_LINES_61_64_65.join('\n'));
       assert.equal(result.length, 1);

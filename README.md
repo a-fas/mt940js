@@ -54,6 +54,7 @@ for (let s of statements) {
 -  `closingBalance` {Number} - ending balance of the statement (with sign, based on debit/credit mark)
 -  `closingAvailableBalance` {Number} - tag 64 closing available balance, default = closing balance
 -  `forwardAvailableBalance` {Number} - tag 65 forward available balance, default = closing available
+-  `informationToAccountOwner` {string} - additional statement level information
 -  `transactions` {array}  - collection of transactions
 
 **Each Transaction contains data of tag 61 (and tag 86 for details)**
