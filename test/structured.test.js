@@ -20,6 +20,7 @@ describe('Parser::_detectDetailStructure', () => {
     assert.isUndefined(run('/some arbitrary text'));
     assert.isUndefined(run('/some/ arbitrary text')); // lower case
     assert.isUndefined(run('some /ATTR/ arbitrary text'));
+    assert.isUndefined(run('')); // empty string
   });
 
   it('Detects > structure', () => {
@@ -29,6 +30,14 @@ describe('Parser::_detectDetailStructure', () => {
       '31': ''
     });
     assert.deepEqual(run('>20Details 123\n>30123232421>31'), {
+      '20': 'Details 123',
+      '30': '123232421',
+      '31': ''
+    });
+  });
+
+  it('Detects structure, with beginning spaces', () => {
+    assert.deepEqual(run(' >20Details 123>30123232421>31'), {
       '20': 'Details 123',
       '30': '123232421',
       '31': ''
