@@ -144,3 +144,6 @@ Inspired by https://github.com/WoLpH/mt940
 
 ## Standard references
 - https://www2.swift.com/knowledgecentre/publications/us9m_20180720/2.0
+- https://www.paiementor.com/payment-messages/
+- https://www.paiementor.com/swift-mt-message-structure-blocks-1-to-5/
+- https://www.nordea.se/Images/39-16149/MT940-file-description.pdf
