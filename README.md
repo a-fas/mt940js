@@ -56,7 +56,8 @@ for (let s of statements) {
 -  `forwardAvailableBalance` {Number} - tag 65 forward available balance, default = closing available
 -  `informationToAccountOwner` {string} - additional statement level information
 -  `transactions` {array}  - collection of transactions
-
+-  `messageBlocks` {object} - statement message blocks, if present (EXPERIMENTAL)
+ 
 **Each Transaction contains data of tag 61 (and tag 86 for details)**
 
 - `date` {Date} - transaction date

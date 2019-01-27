@@ -283,6 +283,15 @@ describe('Parser', () => {
       const exp2   = expectedStatement();
 
       // patch data
+      exp1.messageBlocks      = {
+        '1': { value: 'F01KNABNL2HAXXX0000000000' },
+        '2': { value: 'I940KNABNL2HXXXXN3020' },
+      };
+      exp2.messageBlocks      = {
+        '1': { value: 'F01KNABNL2HAXXX0000000000' },
+        '2': { value: 'I940KNABNL2HXXXXN3020' },
+        '5': { value: '{CAC:VALIDATION SUCCESS}' },
+      };
       exp2.openingBalance     = exp2.closingBalance;
       exp2.openingBalanceDate = exp2.closingBalanceDate;
       exp2.number.sequence    = '2';
