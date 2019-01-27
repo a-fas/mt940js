@@ -4,7 +4,6 @@ const Tags    = require('../lib/tags');
 const helpers = require('../lib/helperModels');
 
 const DUMMY_STATEMENT_LINES = [
-  '{1:XXX0000000000}{2:XXXXXXXXX}{4:',
   ':20:B4E08MS9D00A0009',
   ':21:X',
   ':25:123456789',
@@ -14,11 +13,9 @@ const DUMMY_STATEMENT_LINES = [
   ':86:LINE1',
   'LINE2',
   ':62F:C140508EUR500,00',
-  '-}'
 ];
 
 const DUMMY_STATEMENT_LINES_61_64_65 = [
-  '{1:XXX0000000000}{2:XXXXXXXXX}{4:',
   ':20:B4E08MS9D00A0009',
   ':21:X',
   ':25:123456789',
@@ -33,9 +30,29 @@ const DUMMY_STATEMENT_LINES_61_64_65 = [
   ':65:C140510EUR700,00',
   ':86:statement',
   'comment',
-  '-}'
 ];
 
+const DUMMY_STATEMENT_W_MESSAGE_BLOCKS = [
+  '{1:F01KNABNL2HAXXX0000000000}{2:I940KNABNL2HXXXXN3020}{4:',
+  ':20:B4E08MS9D00A0009',
+  ':21:X',
+  ':25:123456789',
+  ':28C:123/1',
+  ':60F:C140507EUR0,00',
+  ':61:1405070507C500,00NTRFNONREF//AUXREF',
+  ':86:LINE1',
+  'LINE2',
+  ':62F:C140508EUR500,00',
+  '-}',
+  '{1:F01KNABNL2HAXXX0000000000}{2:I940KNABNL2HXXXXN3020}{4:',
+  ':20:B4E08MS9D00A0009',
+  ':21:X',
+  ':25:123456789',
+  ':28C:123/2',
+  ':60F:C140508EUR500,00',
+  ':62F:C140508EUR500,00',
+  '-}{5:{CAC:VALIDATION SUCCESS}}'
+];
 
 function expectedStatement() {
   return {
@@ -242,6 +259,7 @@ describe('Parser', () => {
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], expectedStatement());
     });
+
     it('statement with fields 64, 65, long 61 and statement comment', () => {
       const parser = new Parser();
       const exp    = expectedStatement();
@@ -257,6 +275,23 @@ describe('Parser', () => {
       const result = parser.parse(DUMMY_STATEMENT_LINES_61_64_65.join('\n'));
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], exp);
+    });
+
+    it('multiple statements with message blocks', () => {
+      const parser = new Parser();
+      const exp1   = expectedStatement();
+      const exp2   = expectedStatement();
+
+      // patch data
+      exp2.openingBalance     = exp2.closingBalance;
+      exp2.openingBalanceDate = exp2.closingBalanceDate;
+      exp2.number.sequence    = '2';
+      exp2.transactions       = [];
+
+      const result = parser.parse(DUMMY_STATEMENT_W_MESSAGE_BLOCKS.join('\n'));
+      assert.equal(result.length, 2);
+      assert.deepEqual(result[0], exp1);
+      assert.deepEqual(result[1], exp2);
     });
   });
 });
