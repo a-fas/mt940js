@@ -15,6 +15,17 @@ const DUMMY_STATEMENT_LINES = [
   ':62F:C140508EUR500,00',
 ];
 
+const DUMMY_STATEMENT_LINES_WITH_STRUCTURE = [
+  ':20:B4E08MS9D00A0009',
+  ':21:X',
+  ':25:123456789',
+  ':28C:123/1',
+  ':60F:C140507EUR0,00',
+  ':61:1405070507C500,00NTRFNONREF//AUXREF',
+  ':86:?20some?21data',
+  ':62F:C140508EUR500,00',
+];
+
 const DUMMY_STATEMENT_LINES_61_64_65 = [
   ':20:B4E08MS9D00A0009',
   ':21:X',
@@ -258,6 +269,25 @@ describe('Parser', () => {
       const result = parser.parse(DUMMY_STATEMENT_LINES.join('\n'));
       assert.equal(result.length, 1);
       assert.deepEqual(result[0], expectedStatement());
+    });
+
+    it('statement with structured 86', () => {
+      let parser = new Parser();
+      let result = parser.parse(DUMMY_STATEMENT_LINES_WITH_STRUCTURE.join('\n'));
+      assert.equal(result.length, 1);
+
+      const exp = expectedStatement();
+      exp.transactions[0].details = '?20some?21data';
+      exp.transactions[0].structuredDetails = {
+        '20': 'some',
+        '21': 'data',
+      };
+      assert.deepEqual(result[0], exp);
+
+      parser = new Parser({ no86Structure: true });
+      result = parser.parse(DUMMY_STATEMENT_LINES_WITH_STRUCTURE.join('\n'));
+      delete exp.transactions[0].structuredDetails;
+      assert.deepEqual(result[0], exp);
     });
 
     it('statement with fields 64, 65, long 61 and statement comment', () => {

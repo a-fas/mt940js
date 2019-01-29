@@ -5,3 +5,4 @@ coverage/
 doc/
 play.js
 .vscode/
+.nyc_output/

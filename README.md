@@ -97,7 +97,7 @@ or
 '/ORDP/Smith Corp'
 ``` 
 
-The parser attempts to detect if field 86 contains tags like these and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standardized among different banks.
+The parser attempts to detect if field 86 contains tags like these and, if yes, adds `structuredDetails` attribute to a statement line. Tag digits are not interpreted as they are not standardized among different banks. Parsing 86 structure can be force disabled by passing `{ no86Structure: true }` to the constructor.
 
 ```javascript
 // let incoming file contain one line with 86 field:
@@ -133,6 +133,7 @@ Contribution is welcomed :)
 
 ## TODO
 - pre parsing middlewares
+- parsing structure of block messages
 
 ## Author
 [Alexander Tsybulsky](https://github.com/a-fas)
