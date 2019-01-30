@@ -17,19 +17,19 @@ if (!argv.length) {
 
 argv.forEach(arg => {
   switch (arg) {
-    case '--help':
-    case '-h':
-      banner();
+  case '--help':
+  case '-h':
+    banner();
+    process.exit(1);
+    break;
+  default:
+    try {
+      fs.accessSync(arg);
+      files.push(arg);
+    } catch (e) {
+      console.error(`Cannot access file: ${arg}`);
       process.exit(1);
-      break;
-    default:
-      try {
-        fs.accessSync(arg);
-        files.push(arg);
-      } catch (e) {
-        console.error(`Cannot access file: ${arg}`);
-        process.exit(1);
-      }
+    }
   }
 });
 

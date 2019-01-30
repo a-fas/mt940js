@@ -16,6 +16,7 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi":   ["error", "always", { "omitLastInOneLineBlock": true}],
     "no-console": "off",
-    "no-trailing-spaces": ["error"]
+    "no-trailing-spaces": ["error"],
+    "indent": ["error", 2]
   }
 }
