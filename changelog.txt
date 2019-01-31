@@ -8,7 +8,12 @@ Legend
 + : added
 - : removed
 
-2019-01-29 v1.2.2
+2019-01-31 v1.3.1
+------------------
++ no86structure param to skip 86 tag structure detection
+* minor fixes and refactorings
+
+2019-01-29 v1.3.0
 ------------------
 + experimental messageBlocks detection and partial parsing '{1:...}'
 
