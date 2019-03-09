@@ -70,7 +70,6 @@ describe('Field86Structure', () => {
     ].join('');
 
     const parsed = run(tag);
-    console.log(parsed);
 
     assert.deepEqual(parsed, {
       'XXXX': '/100924006010 XXXXXXXXXXXXX XXXXXXXX XXXXXX AB (PUBL) ',
