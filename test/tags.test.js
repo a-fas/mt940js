@@ -106,6 +106,17 @@ describe('Tags', () => {
       assert.equal(tag.fields.extraDetails, 'SUPPLEMENTARY_DETAILS');
     });
 
+    it('should create tag 61 (with extraDetails, but no bankRef)', () => {
+      const str = '170406D000000001001,69N541NONREF\nNL72RABO0104510633';
+      const tag = tf.createTag('61', null, str);
+      assert.equal(tag.fields.date.toISOString().substr(0,10), '2017-04-06');
+      assert.equal(tag.fields.isReversal, false);
+      assert.equal(tag.fields.amount, -1001.69);
+      assert.equal(tag.fields.transactionType, 'N541');
+      assert.equal(tag.fields.reference, 'NONREF');
+      assert.equal(tag.fields.extraDetails, 'NL72RABO0104510633');
+    });
+
     it('should create tag 86 (TransactionDetails)', () => {
       const str = 'Some text here';
       const tag = tf.createTag('86', null, str);
