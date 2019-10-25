@@ -8,6 +8,10 @@ Legend
 + : added
 - : removed
 
+2019-10-25 v1.3.2
+------------------
++ Support for NS fields in the context of transactions (saved to 'nonSwift' attribute)
+
 2019-01-31 v1.3.1
 ------------------
 + no86structure param to skip 86 tag structure detection
