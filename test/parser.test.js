@@ -333,4 +333,117 @@ describe('Parser', () => {
       assert.deepEqual(result[1], exp2);
     });
   });
+
+  /* NS TESTS */
+  describe('NS tests', () => {
+
+    const DUMMY_STATEMENT_LINES_WITH_NS = [
+      ':20:B4E08MS9D00A0009',
+      ':21:X',
+      ':25:123456789',
+      ':28C:123/1',
+      ':60F:C140507EUR0,00',
+      ':61:1405070507C100,00NTRFNONREF//AUXREF',
+      ':86:LINE1',
+      ':61:1405070507C200,00NTRFNONREF//AUXREF',
+      ':NS:Hello world',
+      ':86:LINE2',
+      ':61:1405070507C300,00NTRFNONREF//AUXREF',
+      ':86:LINE3',
+      ':NS:Hello',
+      'bank info',
+      ':62F:C140508EUR600,00',
+    ];
+
+    it('_parseLines with NS', () => {
+      const parser = new Parser();
+      const result = [...parser._parseLines(DUMMY_STATEMENT_LINES_WITH_NS)];
+      assert.deepEqual(result, [
+        {id: '20', subId: '',  data: ['B4E08MS9D00A0009']},
+        {id: '21', subId: '',  data: ['X']},
+        {id: '25', subId: '',  data: ['123456789']},
+        {id: '28', subId: 'C', data: ['123/1']},
+        {id: '60', subId: 'F', data: ['C140507EUR0,00']},
+        {id: '61', subId: '',  data: ['1405070507C100,00NTRFNONREF//AUXREF']},
+        {id: '86', subId: '',  data: ['LINE1']},
+        {id: '61', subId: '',  data: ['1405070507C200,00NTRFNONREF//AUXREF']},
+        {id: 'NS', subId: '',  data: ['Hello world']},
+        {id: '86', subId: '',  data: ['LINE2']},
+        {id: '61', subId: '',  data: ['1405070507C300,00NTRFNONREF//AUXREF']},
+        {id: '86', subId: '',  data: ['LINE3']},
+        {id: 'NS', subId: '',  data: ['Hello', 'bank info']},
+        {id: '62', subId: 'F', data: ['C140508EUR600,00']},
+      ]);
+    });
+
+    it('statement with NS', () => {
+      const parser = new Parser();
+      const result = parser.parse(DUMMY_STATEMENT_LINES_WITH_NS.join('\n'));
+      assert.equal(result.length, 1);
+      assert.deepEqual(result[0], {
+        transactionReference:  'B4E08MS9D00A0009',
+        relatedReference:      'X',
+        accountIdentification: '123456789',
+        number: {
+          statement: '123',
+          sequence:  '1',
+          section:   ''
+        },
+        statementDate:      helpers.Date.parse('14', '05', '08'),
+        openingBalanceDate: helpers.Date.parse('14', '05', '07'),
+        closingBalanceDate: helpers.Date.parse('14', '05', '08'),
+        currency:           'EUR',
+        openingBalance:     0.0,
+        closingBalance:     600.0,
+        closingAvailableBalanceDate: helpers.Date.parse('14', '05', '08'),
+        forwardAvailableBalanceDate: helpers.Date.parse('14', '05', '08'),
+        closingAvailableBalance:     600.0,
+        forwardAvailableBalance:     600.0,
+        transactions: [
+          {
+            amount:          100.00,
+            isReversal:      false,
+            currency:        'EUR',
+            reference:       'NONREF',
+            bankReference:   'AUXREF',
+            transactionType: 'NTRF',
+            date:            helpers.Date.parse('14', '05', '07'),
+            entryDate:       helpers.Date.parse('14', '05', '07'),
+            details:         'LINE1',
+            extraDetails:    '',
+            fundsCode:       '',
+          },
+          {
+            amount:          200.00,
+            isReversal:      false,
+            currency:        'EUR',
+            reference:       'NONREF',
+            bankReference:   'AUXREF',
+            transactionType: 'NTRF',
+            date:            helpers.Date.parse('14', '05', '07'),
+            entryDate:       helpers.Date.parse('14', '05', '07'),
+            details:         'LINE2',
+            extraDetails:    '',
+            fundsCode:       '',
+            nonSwift:        'Hello world',
+          },
+          {
+            amount:          300.00,
+            isReversal:      false,
+            currency:        'EUR',
+            reference:       'NONREF',
+            bankReference:   'AUXREF',
+            transactionType: 'NTRF',
+            date:            helpers.Date.parse('14', '05', '07'),
+            entryDate:       helpers.Date.parse('14', '05', '07'),
+            details:         'LINE3',
+            extraDetails:    '',
+            fundsCode:       '',
+            nonSwift:        'Hello\nbank info',
+          },
+        ]});
+    });
+
+  });
+
 });

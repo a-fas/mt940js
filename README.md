@@ -72,6 +72,7 @@ for (let s of statements) {
 - `bankReference` {string} - bank reference, *optional*
 - `extraDetails` {string} - extra details (supplementary details), *optional*
 - `structuredDetails` {Object} - structured details if detected, in for of `{ subtag: value }` e.g. `{ '20': '123456' }`
+- `nonSwift` {string} - optional, content of NS tag which happened in the context of transaction (after tags 61 or 86), can be multiline (separated by `\n`)
 
 Each statement is validated for: 
 
