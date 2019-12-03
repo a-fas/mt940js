@@ -8,9 +8,10 @@ Legend
 + : added
 - : removed
 
-2019-10-25 v1.3.2
+2019-12-03 v1.3.3
 ------------------
 + Support for NS fields in the context of transactions (saved to 'nonSwift' attribute)
++ Support for GVC at the beginning of payment details (thanks to @artur-krueger)
 
 2019-01-31 v1.3.1
 ------------------
