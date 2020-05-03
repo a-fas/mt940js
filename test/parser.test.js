@@ -142,8 +142,8 @@ describe('Parser', () => {
 
     it('_splitAndNormalize', () => {
       const parser = new Parser();
-      const result = parser._splitAndNormalize('abc   \r\n   \r\n-');
-      assert.deepEqual(result, ['abc']);
+      const result = parser._splitAndNormalize('abc   \r\n\r\n-');
+      assert.deepEqual(result, ['abc   ']);
     });
 
     it('_parseLines', () => {
