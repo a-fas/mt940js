@@ -3,17 +3,17 @@
  * @module ./index
  */
 
-const _Parser       = require('./lib/parser');
-const _HelperModels = require('./lib/helperModels');
+const Parser  = require('./lib/parser');
+const Helpers = require('./lib/helperModels');
 
 module.exports = {
   /** MT940 Parser - main class
    * @see {@link Parser}
    */
-  Parser: _Parser,
+  Parser,
 
   /** Optional helper classes
    * @see {@link lib/helperModels}
    */
-  Helpers: _HelperModels
+  Helpers,
 };
