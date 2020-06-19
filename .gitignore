@@ -6,3 +6,4 @@ doc/
 play.js
 .vscode/
 .nyc_output/
+coverage.lcov
