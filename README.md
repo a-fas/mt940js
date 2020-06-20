@@ -4,7 +4,7 @@
 [![NPM version](https://badge.fury.io/js/mt940js.svg)](https://badge.fury.io/js/mt940js)
 [![codecov](https://codecov.io/gh/a-fas/mt940js/branch/master/graph/badge.svg)](https://codecov.io/gh/a-fas/mt940js)
 
-*[History of changes](/changelog.txt)*  
+*[History of changes](./CHANGELOG)*
 
 mt940js is a SWIFT mt940 bank statement format parser for javascript (ES2015). Takes in text of mt940 file, puts out array of parsed statements and transactions.
 See examples below.
@@ -150,7 +150,7 @@ Contribution is welcomed :)
 [Alexander Tsybulsky](https://github.com/a-fas)
 
 ## License
-The code is licensed under Apache-2.0 License. Please see [LICENSE](/LICENSE) for details.
+The code is licensed under Apache-2.0 License. Please see [LICENSE](./LICENSE) for details.
 
 ## Credits
 Inspired by https://github.com/WoLpH/mt940
