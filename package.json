@@ -3,6 +3,7 @@
   "version": "1.4.0-beta.0",
   "description": "javascript mt940 bank statement parser",
   "main": "index.js",
+  "types": "./typings/index.d.ts",
   "scripts": {
     "test": "mocha",
     "testw": "mocha --watch",
