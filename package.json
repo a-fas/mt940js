@@ -9,7 +9,7 @@
     "testcov": "nyc mocha",
     "lint": "eslint lib test cli.js index.js",
     "doc": "jsdoc -c jsdoc.json",
-    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov",
     "coverage": "nyc --reporter=html --reporter=text mocha"
   },
   "keywords": [

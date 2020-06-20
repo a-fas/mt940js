@@ -22,3 +22,8 @@ jobs:
         env:
           CI: true      
       - run: npm run lint
+      - run: npm run report-coverage
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.lcov
+          fail_ci_if_error: true
