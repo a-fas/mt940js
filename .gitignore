@@ -7,3 +7,4 @@ play.js
 .vscode/
 .nyc_output/
 coverage.lcov
+dist/

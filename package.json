@@ -10,7 +10,11 @@
     "lint": "eslint lib test cli.js index.js",
     "doc": "jsdoc -c jsdoc.json",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "coverage": "nyc --reporter=html --reporter=text mocha"
+    "coverage": "nyc --reporter=html --reporter=text mocha",
+    "build:umd": "npx webpack index.js -o dist/index.min.js -p --output-library mt940js --output-library-target umd --devtool source-map",
+    "prebuild": "rimraf dist",
+    "build": "npm run build:umd",
+    "prepublishOnly" : "npm run test && npm run lint && npm run build"
   },
   "keywords": [
     "mt940",
@@ -18,6 +22,15 @@
     "bank",
     "statement",
     "parser"
+  ],
+  "files": [
+    "README.md",
+    "changelog.txt",
+    "index.js",
+    "cli.js",
+    "lib",
+    "jsdoc.json",
+    "dist"
   ],
   "author": "Alexander Tsybulsky",
   "license": "Apache-2.0",
@@ -28,6 +41,7 @@
     "eslint": "^7.3.0",
     "jsdoc": "^3.6.4",
     "mocha": "^8.0.1",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2"
   }
 }

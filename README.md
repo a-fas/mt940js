@@ -15,6 +15,16 @@ See examples below.
 npm install mt940js
 ```
 
+Also accessible via unpkg.com e.g.:
+
+```html
+<script src="https://unpkg.com/mt940js@latest/dist/index.min.js"></script>
+<script>
+  const parser = new mt940js.Parser();
+  ...
+</script>
+```
+
 ## API and usage
 
 Main parser class - `Parser` - parses input text (e.g. read from a file) into array of statements (a file may contain one or more). Each output statement contains a set of attributes, describing opening balance, statement number, etc and also an array of transactions.
